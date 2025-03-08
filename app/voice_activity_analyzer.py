@@ -1,28 +1,28 @@
 import io
 from pydub import AudioSegment, silence
-from .models import AudioAnalysisResult
+from .models import VoiceActivityAnalysis
 
-class AudioProcessor:
-    def __init__(self, noise_sample_duration=1000, offset=10, min_silence_len=500):
+class VoiceActivityAnalyzer:
+    def __init__(self, noise_sample_duration=1000, offset=10, min_pause_len=500):
         self.noise_sample_duration = noise_sample_duration
         self.offset = offset
-        self.min_silence_len = min_silence_len
+        self.min_pause_len = min_pause_len
 
-    def analyze(self, audio_bytes: bytes) -> AudioAnalysisResult:
+    def analyze(self, audio_bytes: bytes) -> VoiceActivityAnalysis:
         audio = self._load_audio(audio_bytes)
         total_duration = len(audio) / 1000.0
 
         adaptive_threshold = self._calculate_adaptive_threshold(audio)
-        initial_nonsilent = self._detect_nonsilent_segments(audio, adaptive_threshold)
-        answer_delay_duration = self._calculate_answer_delay(initial_nonsilent)
+        initial_speech = self._detect_speech_segments(audio, adaptive_threshold)
+        answer_delay_duration = self._calculate_answer_delay(initial_speech)
 
         speech_segments = self._extract_speech_segments(audio, answer_delay_duration, adaptive_threshold)
         pause_segments = self._extract_pause_segments(speech_segments)
 
-        total_speech_duration = sum(seg["duration"] for seg in speech_segments)
+        total_speech_duration = sum(speech["duration"] for speech in speech_segments)
         total_pause_duration = sum(pause["duration"] for pause in pause_segments)
 
-        return AudioAnalysisResult(
+        return VoiceActivityAnalysis(
             total_duration=total_duration,
             total_speech_duration=total_speech_duration,
             total_pause_duration=total_pause_duration,
@@ -43,21 +43,21 @@ class AudioProcessor:
         noise_floor = baseline_segment.dBFS
         return noise_floor + self.offset
 
-    def _detect_nonsilent_segments(self, audio: AudioSegment, threshold: float) -> list:
-        """Detects non-silent segments in the audio using the given threshold."""
+    def _detect_speech_segments(self, audio: AudioSegment, threshold: float) -> list:
+        """Detects speech segments in the audio using the given threshold."""
         return silence.detect_nonsilent(
             audio,
-            min_silence_len=self.min_silence_len,
+            min_silence_len=self.min_pause_len,
             silence_thresh=threshold
         )
 
-    def _calculate_answer_delay(self, nonsilent_segments: list) -> float:
+    def _calculate_answer_delay(self, speech_segments: list) -> float:
         """
-        Determines the answer delay as the start time of the first non-silent segment.
-        Returns 0.0 if no non-silent segment is detected.
+        Determines the answer delay as the start time of the first speech segment.
+        Returns 0.0 if no speech segment is detected.
         """
-        if nonsilent_segments:
-            return nonsilent_segments[0][0] / 1000.0
+        if speech_segments:
+            return speech_segments[0][0] / 1000.0
         return 0.0
 
     def _extract_speech_segments(self, audio: AudioSegment, delay: float, threshold: float) -> list:
@@ -67,10 +67,10 @@ class AudioProcessor:
         """
         start_ms = int(delay * 1000)
         audio_slice = audio[start_ms:]
-        nonsilent_after = self._detect_nonsilent_segments(audio_slice, threshold)
+        speech_after = self._detect_speech_segments(audio_slice, threshold)
         segments = []
 
-        for seg in nonsilent_after:
+        for seg in speech_after:
             seg_start = (seg[0] / 1000.0) + delay
             seg_end = (seg[1] / 1000.0) + delay
             duration = seg_end - seg_start

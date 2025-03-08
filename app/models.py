@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class VoiceActivityAnalysis(BaseModel):
     total_duration: float
     total_speech_duration: float

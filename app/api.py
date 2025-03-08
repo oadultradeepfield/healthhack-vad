@@ -10,6 +10,11 @@ router = APIRouter()
 analyzer = VoiceActivityAnalyzer()
 
 
+@router.get("/health")
+def health_check():
+    return {"status": "ok"}
+
+
 @router.post("/analyze")
 def analyze_audio_endpoint(download_url: str):
     audio_content = _download_audio(download_url)

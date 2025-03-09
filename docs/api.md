@@ -4,7 +4,7 @@ This document provides information about the available API endpoints.
 
 ## Base URL
 
-All API endpoints are relative to your server's base URL.
+All API endpoints are relative to the service's base URL.
 
 ## Endpoints
 
@@ -23,9 +23,11 @@ All API endpoints are relative to your server's base URL.
 
 ### Analyze Audio
 
-| Request         | Required Parameters     | Response    |
-| --------------- | ----------------------- | ----------- |
-| `POST /analyze` | `download_url` (string) | Shown below |
+| Request         | Required Parameters     | Response                   |
+| --------------- | ----------------------- | -------------------------- |
+| `POST /analyze` | `download_url` (string) | Shown in the example below |
+
+Example response in JSON format:
 
 ```json
 {
@@ -40,16 +42,16 @@ All API endpoints are relative to your server's base URL.
       "start_time": 0.5,
       "end_time": 10.2,
       "duration": 9.7
-    },
-    ...
+    }
+    // ...
   ],
   "pause_segments": [
     {
       "start_time": 10.2,
       "end_time": 15.5,
       "duration": 5.3
-    },
-    ...
+    }
+    // ...
   ]
 }
 ```

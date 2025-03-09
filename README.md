@@ -5,7 +5,7 @@
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white)
 
-This Voice Activity Detection (VAD) service was developed for [HealthHack 2025](https://healthhack.sg/). It analyzes recorded speech to detect pause durations, number of pauses, pause locations, speech segment length, and response delays, which are factors associated with cognitive decline.d
+This Voice Activity Detection (VAD) service was developed for [HealthHack 2025](https://healthhack.sg/). It analyzes recorded speech to detect pause durations, number of pauses, pause locations, speech segment length, and response delays, which are factors associated with cognitive decline.
 
 The service processes conversations between an AI agent and users, helping identify early signs of dementia in older adults or track changes in user response patterns over time.
 

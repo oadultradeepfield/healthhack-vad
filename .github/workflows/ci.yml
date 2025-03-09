@@ -13,6 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set up ffmpeg
+        run: |
+          sudo apt update
+          sudo apt install -y ffmpeg
+
       - name: Set up Python 3.11
         uses: actions/setup-python@v4
         with:

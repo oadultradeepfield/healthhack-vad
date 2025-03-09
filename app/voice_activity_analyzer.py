@@ -1,6 +1,6 @@
 import io
 from pydub import AudioSegment, silence
-from .models import VoiceActivityAnalysis
+from app.models import VoiceActivityAnalysis
 
 
 class VoiceActivityAnalyzer:

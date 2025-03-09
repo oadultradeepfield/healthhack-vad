@@ -2,7 +2,7 @@ import os
 import requests
 from fastapi import APIRouter, HTTPException
 from dotenv import load_dotenv
-from .voice_activity_analyzer import VoiceActivityAnalyzer
+from app.voice_activity_analyzer import VoiceActivityAnalyzer
 
 load_dotenv(dotenv_path="../env")
 

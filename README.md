@@ -20,13 +20,43 @@ The service processes conversations between an AI agent and users, helping ident
 - [x] Create a FastAPI service to receive the audio file URLs from mobile app requests.
 - [ ] Containerize the service with Docker and deploy it on Google Cloud Run for mobile app testing.
 
-## Getting Started
+## Local Development Guide
 
-To be updated.
+1. **Clone the repository** and ensure Python is installed (preferably version 3.11). Then, install the required dependencies:
 
-## API Documentation
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-To be updated.
+2. **Run tests** after making any changes to verify everything still works:
+
+   ```bash
+   pytest
+   ```
+
+   These tests will also run automatically when you push code to GitHub or create a pull request as part of the CI workflow.
+
+3. **Build and run the app with Docker**:
+
+   ```bash
+   docker build -t healthhack-vad .
+   docker run --env-file .env -d --name healthhack-vad -p 8080:8080 healthhack-vad:latest
+   ```
+
+   Ensure you have set up your environment variables in the `.env` file. Refer to [`.env.example`](/.env.example) for guidance.
+
+**Note:** Make sure `ffmpeg` (or an equivalent tool) is installed on your machine for `pydub` to function properly. See the installation guide [here](https://github.com/adaptlearning/adapt_authoring/wiki/installing-ffmpeg) for your operating system.
+
+## API Reference
+
+This service provides the following API endpoints:
+
+| Method | URL        | Description            |
+| ------ | ---------- | ---------------------- |
+| GET    | `/health`  | Health check endpoint  |
+| POST   | `/analyze` | Analyze audio from URL |
+
+For complete API documentation including request/response formats, please see the [API Documentation](./docs/api.md).
 
 ## License
 

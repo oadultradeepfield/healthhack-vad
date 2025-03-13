@@ -28,10 +28,12 @@ All API endpoints are relative to the service's base URL.
 - **Description:** Analyzes an audio file from a provided download URL.
 - **Request Body:**
   - `download_url` (string, required): The URL of the audio file to analyze.
+  - `should_return` (boolean, required): The flag to indicate whether the analysis result should be returned back to the client (set to `false` in production).
   - Example body in JSON format:
     ```javascript
     {
-      "download_url": "download_url"
+      "download_url": "<download_url>",
+      "should_return": false
     }
     ```
 - **Response:**

@@ -13,6 +13,7 @@ analyzer = VoiceActivityAnalyzer()
 
 class AnalyzeRequest(BaseModel):
     download_url: str
+    should_return: bool
 
 
 @router.get("/health")
@@ -32,7 +33,8 @@ def analyze_audio_endpoint(request: AnalyzeRequest):
         )
 
     _forward_analysis(analysis.model_dump(), server_api_url)
-    return analysis
+    if request.should_return:
+        return analysis
 
 
 def _download_audio(download_url: str) -> bytes:

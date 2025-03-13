@@ -11,6 +11,7 @@ client = TestClient(app)
 def patch_requests(monkeypatch):
     monkeypatch.setattr("app.api.requests.get", _fake_requests_get)
     monkeypatch.setattr("app.api.requests.post", _fake_requests_post)
+    monkeypatch.setattr("app.api.requests.put", _fake_requests_put)
 
 
 @pytest.fixture(autouse=True)
@@ -68,6 +69,16 @@ def _fake_requests_get(url, **kwargs):
 
 
 def _fake_requests_post(url, json, **kwargs):
+    class FakeResponse:
+        status_code = 200
+
+        def raise_for_status(self):
+            pass
+
+    return FakeResponse()
+
+
+def _fake_requests_put(url, json, **kwargs):
     class FakeResponse:
         status_code = 200
 

@@ -29,19 +29,22 @@ All API endpoints are relative to the service's base URL.
 - **Request Body:**
   - `download_url` (string, required): The URL of the audio file to analyze.
   - `should_return` (boolean, required): The flag to indicate whether the analysis result should be returned back to the client (set to `false` in production).
+  - `history_id` (string: UUID, required): The corresponding history ID to put in the database.
   - Example body in JSON format:
     ```javascript
     {
       "download_url": "<download_url>",
       "should_return": false
+      "history_id": "<history_id>"
     }
     ```
-- **Response:**
+- **Response (If `should_return` is `true`):**
 
   Example response in JSON format:
 
   ```javascript
   {
+    "history_id": "1f020d38-6f1b-465c-b476-a31ae153b469"
     "total_duration": 120.5,
     "total_speech_duration": 85.2,
     "total_pause_duration": 35.3,

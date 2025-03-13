@@ -57,7 +57,7 @@ def _forward_analysis(analysis: dict, server_api_url: str):
     Raises an HTTPException (500) if the request fails.
     """
     try:
-        forward_response = requests.post(server_api_url, json=analysis)
+        forward_response = requests.put(server_api_url, json=analysis)
         forward_response.raise_for_status()
     except Exception as e:
         raise HTTPException(

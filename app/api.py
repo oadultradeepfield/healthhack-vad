@@ -1,5 +1,6 @@
 import os
 import requests
+from pydantic import BaseModel
 from fastapi import APIRouter, HTTPException
 from dotenv import load_dotenv
 from app.voice_activity_analyzer import VoiceActivityAnalyzer
@@ -10,14 +11,18 @@ router = APIRouter()
 analyzer = VoiceActivityAnalyzer()
 
 
+class AnalyzeRequest(BaseModel):
+    download_url: str
+
+
 @router.get("/health")
 def health_check():
     return {"status": "ok"}
 
 
 @router.post("/api/analyze")
-def analyze_audio_endpoint(download_url: str):
-    audio_content = _download_audio(download_url)
+def analyze_audio_endpoint(request: AnalyzeRequest):
+    audio_content = _download_audio(request.download_url)
     analysis = analyzer.analyze(audio_content)
 
     server_api_url = os.getenv("SERVER_API_URL")
@@ -26,7 +31,7 @@ def analyze_audio_endpoint(download_url: str):
             status_code=500, detail="SERVER_API_URL not set in the environment"
         )
 
-    # _forward_analysis(analysis.model_dump(), server_api_url)
+    _forward_analysis(analysis.model_dump(), server_api_url)
     return analysis
 
 

@@ -26,9 +26,14 @@ All API endpoints are relative to the service's base URL.
 - **Method:** `POST`
 - **URL:** `/api/analyze`
 - **Description:** Analyzes an audio file from a provided download URL.
-- **Parameters:**
+- **Request Body:**
   - `download_url` (string, required): The URL of the audio file to analyze.
-  - Example: `http://localhost:8080/api/analyze?download_url=download_url`.
+  - Example body in JSON format:
+    ```javascript
+    {
+      "download_url": "download_url"
+    }
+    ```
 - **Response:**
 
   Example response in JSON format:

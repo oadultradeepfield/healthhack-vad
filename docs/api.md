@@ -24,7 +24,7 @@ All API endpoints are relative to the service's base URL.
 ### Analyze Audio
 
 - **Method:** `POST`
-- **URL:** `/analyze`
+- **URL:** `/api/analyze`
 - **Description:** Analyzes an audio file from a provided download URL.
 - **Parameters:**
   - `download_url` (string, required): The URL of the audio file to analyze.

@@ -15,7 +15,7 @@ The service processes conversations between an AI agent and users, helping ident
 
 ## Development Roadmap
 
-- [x] Develop an audio processing pipeline to convert recorded speech (.wav) into structured data.
+- [x] Develop an audio processing pipeline to convert recorded speech into structured data.
 - [x] Implement pause detection and speech metrics analysis, sending results to the Go server for database actions.
 - [x] Create a FastAPI service to receive the audio file URLs from mobile app requests.
 - [ ] Containerize the service with Docker and deploy it on Google Cloud Run for mobile app testing.
@@ -51,10 +51,10 @@ The service processes conversations between an AI agent and users, helping ident
 
 This service provides the following API endpoints:
 
-| Method | URL        | Description            |
-| ------ | ---------- | ---------------------- |
-| GET    | `/health`  | Health check endpoint  |
-| POST   | `/analyze` | Analyze audio from URL |
+| Method | URL            | Description            |
+| ------ | -------------- | ---------------------- |
+| GET    | `/health`      | Health check endpoint  |
+| POST   | `/api/analyze` | Analyze audio from URL |
 
 For complete API documentation including request/response formats, please see the [API Documentation](./docs/api.md).
 

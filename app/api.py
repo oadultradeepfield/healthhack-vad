@@ -15,7 +15,7 @@ def health_check():
     return {"status": "ok"}
 
 
-@router.post("/analyze")
+@router.post("/api/analyze")
 def analyze_audio_endpoint(download_url: str):
     audio_content = _download_audio(download_url)
     analysis = analyzer.analyze(audio_content)
@@ -26,7 +26,7 @@ def analyze_audio_endpoint(download_url: str):
             status_code=500, detail="SERVER_API_URL not set in the environment"
         )
 
-    _forward_analysis(analysis.model_dump(), server_api_url)
+    # _forward_analysis(analysis.model_dump(), server_api_url)
     return analysis
 
 

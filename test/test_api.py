@@ -32,8 +32,8 @@ def test_analyze_endpoint():
     # since every GET requests are replaced by the fake one
     test_audio_url = "http://fakeaudio.com/test.wav"
     response = client.post(
-        "/analyze",
-        params={"download_url": test_audio_url},
+        "/api/analyze",
+        json={"download_url": test_audio_url},
     )
     assert response.status_code == 200
     data = response.json()

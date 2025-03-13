@@ -14,6 +14,7 @@ analyzer = VoiceActivityAnalyzer()
 class AnalyzeRequest(BaseModel):
     download_url: str
     should_return: bool
+    history_id: str
 
 
 @router.get("/health")
@@ -24,7 +25,7 @@ def health_check():
 @router.post("/api/analyze")
 def analyze_audio_endpoint(request: AnalyzeRequest):
     audio_content = _download_audio(request.download_url)
-    analysis = analyzer.analyze(audio_content)
+    analysis = analyzer.analyze(audio_content, request.history_id)
 
     server_api_url = os.getenv("SERVER_API_URL")
     if not server_api_url:

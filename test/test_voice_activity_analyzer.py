@@ -9,7 +9,7 @@ def test_audio_processor_composite():
     processor = VoiceActivityAnalyzer(
         noise_sample_duration=1000, offset=10, min_pause_len=500
     )
-    result = processor.analyze(audio_bytes)
+    result = processor.analyze(audio_bytes, history_id="9999")
     assert abs(result.answer_delay_duration - 2.0) < 0.2
     assert result.num_speech_segments == 2
     assert abs(result.total_speech_duration - 2.5) < 0.3

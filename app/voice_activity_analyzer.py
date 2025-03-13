@@ -9,7 +9,7 @@ class VoiceActivityAnalyzer:
         self.offset = offset
         self.min_pause_len = min_pause_len
 
-    def analyze(self, audio_bytes: bytes) -> VoiceActivityAnalysis:
+    def analyze(self, audio_bytes: bytes, history_id: str) -> VoiceActivityAnalysis:
         audio = self._load_audio(audio_bytes)
         total_duration = len(audio) / 1000.0
 
@@ -26,6 +26,7 @@ class VoiceActivityAnalyzer:
         total_pause_duration = sum(pause["duration"] for pause in pause_segments)
 
         return VoiceActivityAnalysis(
+            history_id=history_id,
             total_duration=total_duration,
             total_speech_duration=total_speech_duration,
             total_pause_duration=total_pause_duration,

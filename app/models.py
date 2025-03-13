@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 
 class VoiceActivityAnalysis(BaseModel):
+    history_id: str
     total_duration: float
     total_speech_duration: float
     total_pause_duration: float

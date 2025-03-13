@@ -18,7 +18,7 @@ The service processes conversations between an AI agent and users, helping ident
 - [x] Develop an audio processing pipeline to convert recorded speech into structured data.
 - [x] Implement pause detection and speech metrics analysis, sending results to the Go server for database actions.
 - [x] Create a FastAPI service to receive the audio file URLs from mobile app requests.
-- [ ] Containerize the service with Docker and deploy it on Google Cloud Run for mobile app testing.
+- [x] Containerize the service with Docker and deploy it on Google Cloud Run for mobile app testing.
 
 ## Local Development Guide
 

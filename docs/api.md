@@ -28,6 +28,7 @@ All API endpoints are relative to the service's base URL.
 - **Description:** Analyzes an audio file from a provided download URL.
 - **Parameters:**
   - `download_url` (string, required): The URL of the audio file to analyze.
+  - Example: `http://localhost:8080/api/analyze?download_url=download_url`.
 - **Response:**
 
   Example response in JSON format:

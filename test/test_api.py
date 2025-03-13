@@ -33,7 +33,7 @@ def test_analyze_endpoint():
     test_audio_url = "http://fakeaudio.com/test.wav"
     response = client.post(
         "/api/analyze",
-        json={"download_url": test_audio_url, "should_return": False},
+        json={"download_url": test_audio_url, "should_return": True},
     )
     assert response.status_code == 200
     data = response.json()

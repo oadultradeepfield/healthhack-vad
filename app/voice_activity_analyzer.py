@@ -13,7 +13,7 @@ class VoiceActivityAnalyzer:
         audio = self._load_audio(audio_bytes)
         total_duration = len(audio) / 1000.0
 
-        adaptive_threshold = self._calculate_adaptive_threshold(audio)
+        adaptive_threshold = self._get_threshold()
         initial_speech = self._detect_speech_segments(audio, adaptive_threshold)
         answer_delay_duration = self._calculate_answer_delay(initial_speech)
 
@@ -41,11 +41,10 @@ class VoiceActivityAnalyzer:
         """Loads an audio segment from bytes."""
         return AudioSegment.from_file(io.BytesIO(audio_bytes))
 
-    def _calculate_adaptive_threshold(self, audio: AudioSegment) -> float:
-        """Calculates the adaptive silence threshold based on a baseline noise sample."""
-        baseline_segment = audio[: self.noise_sample_duration]
-        noise_floor = baseline_segment.dBFS
-        return noise_floor + self.offset
+    def _get_threshold(self) -> float:
+        """Get a fixed silence threshold"""
+        # Use a fixed silence threshold based on prior calibration
+        return -40
 
     def _detect_speech_segments(self, audio: AudioSegment, threshold: float) -> list:
         """Detects speech segments in the audio using the given threshold."""
